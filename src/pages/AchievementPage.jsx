@@ -276,10 +276,12 @@ export default function AchievementPage() {
             <div className="bmi-avatar-section">
               <img
                 src={
-                  parseFloat(bmi) < 18.5 ? '/avatars/underweight.png' :
-                  parseFloat(bmi) < 23 ? '/avatars/fit.png' :
-                  parseFloat(bmi) < 25 ? '/avatars/normal.png' :
-                  '/avatars/overweight.png'
+                  `${import.meta.env.BASE_URL}avatars/${
+                    parseFloat(bmi) < 18.5 ? 'underweight' :
+                    parseFloat(bmi) < 23 ? 'fit' :
+                    parseFloat(bmi) < 25 ? 'normal' :
+                    'overweight'
+                  }.png`
                 }
                 alt={bmiDetail.label}
                 className="bmi-avatar-img"
