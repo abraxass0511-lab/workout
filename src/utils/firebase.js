@@ -12,6 +12,7 @@ const firebaseConfig = {
 
 let app, db, auth;
 let currentUid = null;
+let currentUser = null;
 
 function ensureInit() {
   if (app) return;
@@ -22,32 +23,53 @@ function ensureInit() {
   db = fb.firestore();
 }
 
-export function initAuth() {
-  return new Promise((resolve) => {
-    ensureInit();
-    if (!auth) { resolve(null); return; }
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        currentUid = user.uid;
-        resolve(user.uid);
-      } else {
-        auth.signInAnonymously()
-          .then((cred) => {
-            currentUid = cred.user.uid;
-            resolve(cred.user.uid);
-          })
-          .catch((err) => {
-            console.error('Auth error:', err);
-            resolve(null);
-          });
-      }
-    });
+// Listen for auth state changes
+export function onAuthChange(callback) {
+  ensureInit();
+  if (!auth) return () => {};
+  return auth.onAuthStateChanged((user) => {
+    if (user) {
+      currentUid = user.uid;
+      currentUser = user;
+    } else {
+      currentUid = null;
+      currentUser = null;
+    }
+    callback(user);
   });
+}
+
+// Google Sign-in
+export async function signInWithGoogle() {
+  ensureInit();
+  if (!auth) return null;
+  const provider = new window.firebase.auth.GoogleAuthProvider();
+  try {
+    const result = await auth.signInWithPopup(provider);
+    return result.user;
+  } catch (e) {
+    console.error('Google sign-in error:', e);
+    // If popup blocked, try redirect
+    if (e.code === 'auth/popup-blocked') {
+      await auth.signInWithRedirect(provider);
+    }
+    return null;
+  }
+}
+
+// Sign out
+export async function signOut() {
+  ensureInit();
+  if (!auth) return;
+  await auth.signOut();
 }
 
 export function getUid() {
   return currentUid;
+}
+
+export function getCurrentUser() {
+  return currentUser;
 }
 
 export async function saveUserData(userData) {

@@ -153,3 +153,29 @@
   color: var(--accent-light);
   text-decoration: underline;
 }
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.profile-email {
+  color: var(--accent-light) !important;
+  font-size: 0.78rem !important;
+  margin-top: 2px;
+}
+
+.settings-item-icon.danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--red);
+}
+
+.logout-item {
+  margin-top: 10px;
+}
+
+.logout-item .settings-item-label {
+  color: var(--red);
+}

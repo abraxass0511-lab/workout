@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { useWorkout } from '../contexts/WorkoutContext';
 import { calculateBMI, getBMICategory, getToday } from '../utils/dateUtils';
-import { User, Scale, Key, Trash2, Info, ChevronRight, Save } from 'lucide-react';
+import { User, Scale, Key, Trash2, Info, ChevronRight, Save, LogOut } from 'lucide-react';
+import { signOut, getCurrentUser } from '../utils/firebase';
 import './SettingsPage.css';
 
 export default function SettingsPage() {
@@ -71,11 +72,18 @@ export default function SettingsPage() {
         {/* Profile Card */}
         <div className="settings-profile glass-card-static">
           <div className="profile-avatar">
-            <span>🏋️</span>
+            {getCurrentUser()?.photoURL ? (
+              <img src={getCurrentUser().photoURL} alt="" className="profile-avatar-img" />
+            ) : (
+              <span>🏋️</span>
+            )}
           </div>
           <div className="profile-info">
             <h2>{user.nickname || user.name}</h2>
             <p>{user.heightCm}cm · {user.weightKg}kg {bmi && `· BMI ${bmi} (${bmiCategory})`}</p>
+            {getCurrentUser()?.email && (
+              <p className="profile-email">📧 {getCurrentUser().email}</p>
+            )}
             {user.familyName && (
               <p className="profile-family">👨‍👩‍👧 {user.familyName} ({user.familyRelation})</p>
             )}
@@ -190,13 +198,22 @@ export default function SettingsPage() {
           </button>
 
           {/* App Info - bottom */}
-          <div className="settings-item" id="app-info" style={{ marginTop: 16 }}>
+          <div className="settings-item" id="app-info">
             <div className="settings-item-icon">
               <Info size={18} />
             </div>
             <span className="settings-item-label">앱 정보</span>
             <span className="settings-item-sub">v1.0.0</span>
           </div>
+
+          {/* Logout */}
+          <button className="settings-item logout-item" onClick={() => signOut()} id="logout-btn">
+            <div className="settings-item-icon danger">
+              <LogOut size={18} />
+            </div>
+            <span className="settings-item-label">로그아웃</span>
+            <ChevronRight size={16} className="settings-item-arrow" />
+          </button>
         </div>
 
         {/* Reset Confirmation Modal */}

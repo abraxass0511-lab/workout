@@ -5,12 +5,13 @@ import { WorkoutProvider, useWorkout } from './contexts/WorkoutContext';
 import BottomNav from './components/BottomNav';
 import MonthlyWeightModal from './components/MonthlyWeightModal';
 import MonthlyRewardModal from './components/MonthlyRewardModal';
+import LoginPage from './pages/LoginPage';
 import OnboardingPage from './pages/OnboardingPage';
 import CalendarPage from './pages/CalendarPage';
 import RoutinePage from './pages/RoutinePage';
 import AchievementPage from './pages/AchievementPage';
 import SettingsPage from './pages/SettingsPage';
-import { initAuth, loadCloudData } from './utils/firebase';
+import { onAuthChange, loadCloudData } from './utils/firebase';
 import './App.css';
 
 function CloudSync() {
@@ -20,10 +21,7 @@ function CloudSync() {
 
   useEffect(() => {
     if (synced) return;
-
-    initAuth().then(async (uid) => {
-      if (!uid) { setSynced(true); return; }
-
+    (async () => {
       const data = await loadCloudData();
       if (data) {
         if (data.profile) {
@@ -34,7 +32,7 @@ function CloudSync() {
         }
       }
       setSynced(true);
-    });
+    })();
   }, [synced]);
 
   return null;
@@ -65,6 +63,31 @@ function AppContent() {
 }
 
 export default function App() {
+  const [authUser, setAuthUser] = useState(undefined); // undefined = loading
+
+  useEffect(() => {
+    const unsub = onAuthChange((user) => {
+      setAuthUser(user || null);
+    });
+    return unsub;
+  }, []);
+
+  // Loading state
+  if (authUser === undefined) {
+    return (
+      <div className="app-loading">
+        <div className="app-loading-spinner"></div>
+        <p>로딩 중...</p>
+      </div>
+    );
+  }
+
+  // Not logged in
+  if (!authUser) {
+    return <LoginPage />;
+  }
+
+  // Logged in
   return (
     <HashRouter>
       <UserProvider>
