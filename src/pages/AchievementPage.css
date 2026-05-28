@@ -345,8 +345,9 @@
 .bmi-under { background: #93C5FD; }
 .bmi-normal { background: #86EFAC; }
 .bmi-over { background: #FCD34D; }
-.bmi-obese { background: #FCA5A5; }
+.bmi-obese1 { background: #FCA5A5; }
 .bmi-obese2 { background: #F87171; }
+.bmi-obese3 { background: #DC2626; }
 
 .bmi-indicator {
   position: absolute;

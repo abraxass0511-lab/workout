@@ -305,8 +305,9 @@ export default function AchievementPage() {
                 <div className="bmi-bar-zone bmi-under" style={{ flex: 3.5 }} />
                 <div className="bmi-bar-zone bmi-normal" style={{ flex: 4.5 }} />
                 <div className="bmi-bar-zone bmi-over" style={{ flex: 2 }} />
-                <div className="bmi-bar-zone bmi-obese" style={{ flex: 5 }} />
-                <div className="bmi-bar-zone bmi-obese2" style={{ flex: 10 }} />
+                <div className="bmi-bar-zone bmi-obese1" style={{ flex: 5 }} />
+                <div className="bmi-bar-zone bmi-obese2" style={{ flex: 5 }} />
+                <div className="bmi-bar-zone bmi-obese3" style={{ flex: 5 }} />
                 <div className="bmi-indicator" style={{ left: `${bmiBarPercent}%` }} />
               </div>
               <div className="bmi-bar-ticks">
@@ -315,14 +316,16 @@ export default function AchievementPage() {
                 <span style={{ left: '32%' }}>23</span>
                 <span style={{ left: '40%' }}>25</span>
                 <span style={{ left: '60%' }}>30</span>
+                <span style={{ left: '80%' }}>35</span>
                 <span style={{ left: '100%' }}>40</span>
               </div>
               <div className="bmi-bar-cats">
                 <span style={{ flex: 3.5, color: '#3B82F6' }}>저체중</span>
                 <span style={{ flex: 4.5, color: '#22C55E' }}>정상</span>
                 <span style={{ flex: 2, color: '#F59E0B' }}>과체중</span>
-                <span style={{ flex: 5, color: '#EF4444' }}>비만</span>
-                <span style={{ flex: 10, color: '#DC2626' }}>고도</span>
+                <span style={{ flex: 5, color: '#EF4444' }}>1단계</span>
+                <span style={{ flex: 5, color: '#DC2626' }}>2단계</span>
+                <span style={{ flex: 5, color: '#991B1B' }}>3단계</span>
               </div>
             </div>
             <div className="bmi-advice" style={{ borderLeftColor: bmiDetail.color }}>

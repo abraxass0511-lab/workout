@@ -116,10 +116,10 @@ export function getBMICategory(bmi) {
   const val = parseFloat(bmi);
   if (val < 18.5) return '저체중';
   if (val < 23) return '정상';
-  if (val < 25) return '과체중';
-  if (val < 30) return '비만 (1단계)';
-  if (val < 35) return '비만 (2단계)';
-  return '고도비만';
+  if (val < 25) return '비만 전단계(과체중)';
+  if (val < 30) return '1단계 비만';
+  if (val < 35) return '2단계 비만';
+  return '3단계 비만';
 }
 
 export function getBMIDetail(bmi) {
@@ -127,8 +127,8 @@ export function getBMIDetail(bmi) {
   const val = parseFloat(bmi);
   if (val < 18.5) return { label: '저체중', color: '#3B82F6', range: '18.5 미만', advice: '영양 섭취에 신경 써주세요', emoji: '🔵' };
   if (val < 23) return { label: '정상', color: '#22C55E', range: '18.5 ~ 22.9', advice: '건강한 체중입니다! 유지해주세요', emoji: '🟢' };
-  if (val < 25) return { label: '과체중', color: '#F59E0B', range: '23.0 ~ 24.9', advice: '가벼운 운동과 식단 조절을 추천합니다', emoji: '🟡' };
-  if (val < 30) return { label: '비만 (1단계)', color: '#EF4444', range: '25.0 ~ 29.9', advice: '꾸준한 유산소 운동이 도움됩니다', emoji: '🟠' };
-  if (val < 35) return { label: '비만 (2단계)', color: '#DC2626', range: '30.0 ~ 34.9', advice: '전문가 상담과 체계적인 운동 계획이 필요합니다', emoji: '🔴' };
-  return { label: '고도비만', color: '#991B1B', range: '35.0 이상', advice: '의사와 상담 후 운동 계획을 세워주세요', emoji: '🔴' };
+  if (val < 25) return { label: '비만 전단계', color: '#F59E0B', range: '23.0 ~ 24.9', advice: '가벼운 운동과 식단 조절을 추천합니다', emoji: '🟡' };
+  if (val < 30) return { label: '1단계 비만', color: '#EF4444', range: '25.0 ~ 29.9', advice: '꾸준한 유산소 운동이 도움됩니다', emoji: '🟠' };
+  if (val < 35) return { label: '2단계 비만', color: '#DC2626', range: '30.0 ~ 34.9', advice: '전문가 상담과 체계적인 운동 계획이 필요합니다', emoji: '🔴' };
+  return { label: '3단계 비만', color: '#991B1B', range: '35.0 이상', advice: '의사와 상담 후 운동 계획을 세워주세요', emoji: '🔴' };
 }
