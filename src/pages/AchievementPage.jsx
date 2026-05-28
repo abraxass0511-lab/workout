@@ -309,15 +309,20 @@ export default function AchievementPage() {
                 <div className="bmi-bar-zone bmi-obese2" style={{ flex: 10 }} />
                 <div className="bmi-indicator" style={{ left: `${bmiBarPercent}%` }} />
               </div>
-              <div className="bmi-bar-labels">
-                <span>15</span><span>18.5</span><span>23</span><span>25</span><span>30</span><span>40</span>
+              <div className="bmi-bar-ticks">
+                <span style={{ left: '0%' }}>15</span>
+                <span style={{ left: '14%' }}>18.5</span>
+                <span style={{ left: '32%' }}>23</span>
+                <span style={{ left: '40%' }}>25</span>
+                <span style={{ left: '60%' }}>30</span>
+                <span style={{ left: '100%' }}>40</span>
               </div>
               <div className="bmi-bar-cats">
-                <span style={{ color: '#3B82F6' }}>저체중</span>
-                <span style={{ color: '#22C55E' }}>정상</span>
-                <span style={{ color: '#F59E0B' }}>과체중</span>
-                <span style={{ color: '#EF4444' }}>비만</span>
-                <span style={{ color: '#DC2626' }}>고도</span>
+                <span style={{ flex: 3.5, color: '#3B82F6' }}>저체중</span>
+                <span style={{ flex: 4.5, color: '#22C55E' }}>정상</span>
+                <span style={{ flex: 2, color: '#F59E0B' }}>과체중</span>
+                <span style={{ flex: 5, color: '#EF4444' }}>비만</span>
+                <span style={{ flex: 10, color: '#DC2626' }}>고도</span>
               </div>
             </div>
             <div className="bmi-advice" style={{ borderLeftColor: bmiDetail.color }}>
