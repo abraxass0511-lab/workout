@@ -323,9 +323,9 @@ export default function AchievementPage() {
                 <span style={{ flex: 3.5, color: '#3B82F6' }}>저체중</span>
                 <span style={{ flex: 4.5, color: '#22C55E' }}>정상</span>
                 <span style={{ flex: 2, color: '#F59E0B' }}>과체중</span>
-                <span style={{ flex: 5, color: '#EF4444' }}>1단계</span>
-                <span style={{ flex: 5, color: '#DC2626' }}>2단계</span>
-                <span style={{ flex: 5, color: '#991B1B' }}>3단계</span>
+                <span style={{ flex: 5, color: '#EF4444' }}>1단계 비만</span>
+                <span style={{ flex: 5, color: '#DC2626' }}>2단계 비만</span>
+                <span style={{ flex: 5, color: '#991B1B' }}>3단계 비만</span>
               </div>
             </div>
             <div className="bmi-advice" style={{ borderLeftColor: bmiDetail.color }}>
