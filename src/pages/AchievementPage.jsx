@@ -252,14 +252,14 @@ export default function AchievementPage() {
             <div className="avatar-scene">
               {isSuccess ? (
                 <div className="avatar-happy">
-                  <div className="avatar-emoji">🔥👨‍👩‍👧‍👦💪</div>
-                  <p className="avatar-text">이대로만 유지하면 가족 축제 확정!</p>
+                  <div className="avatar-emoji">🏃‍♂️🔥💪</div>
+                  <p className="avatar-text">이대로만 유지하면 목표 달성!</p>
                   <p className="avatar-sub">현재 {rate}% 달성 중 · 80% 목표 초과!</p>
                 </div>
               ) : (
                 <div className="avatar-progress">
-                  <div className="avatar-emoji">🏃‍♂️👨‍👩‍👧‍👦</div>
-                  <p className="avatar-text">가족이 응원하고 있어요! 화이팅!</p>
+                  <div className="avatar-emoji">🏃‍♂️</div>
+                  <p className="avatar-text">열심히 달리고 있어요! 화이팅!</p>
                   <p className="avatar-sub">80% 목표까지 {80 - rate > 0 ? `${80 - rate}% 남았어요` : '달성!'}</p>
                 </div>
               )}
