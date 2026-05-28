@@ -69,19 +69,18 @@ export default function SendSavingsModal({ onClose, onCheerReceived }) {
   const handleShare = async () => {
     const msg = getMessage();
 
-    // 1. Try native share API (works on most mobile browsers)
-    if (navigator.share) {
+    // Mobile: native share sheet (KakaoTalk etc.)
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({ title: '안티그래비티', text: msg });
         markSent();
         return;
       } catch (e) {
-        // User cancelled or error, fall through
         if (e.name === 'AbortError') return;
       }
     }
 
-    // 2. Fallback: copy to clipboard
+    // PC or fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(msg);
       if (isMobile) {
