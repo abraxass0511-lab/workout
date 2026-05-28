@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider, useUser } from './contexts/UserContext';
 import { WorkoutProvider } from './contexts/WorkoutContext';
 import BottomNav from './components/BottomNav';
@@ -37,12 +37,12 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <UserProvider>
         <WorkoutProvider>
           <AppContent />
         </WorkoutProvider>
       </UserProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
