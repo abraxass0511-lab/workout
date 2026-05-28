@@ -1,0 +1,208 @@
+.savings-modal {
+  overflow: hidden;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.savings-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.savings-header-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #FEE500, #F5D800);
+  color: #3C1E1E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.savings-header h3 {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.savings-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.savings-close:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Scrollable body */
+.savings-body {
+  overflow-y: auto;
+  padding: 16px 20px 24px;
+  flex: 1;
+}
+
+/* Message Template Section */
+.msg-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  letter-spacing: 0.03em;
+}
+
+.msg-template-section {
+  margin-bottom: 16px;
+}
+
+.msg-templates {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.msg-template-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--bg-tertiary);
+  border: 1.5px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.msg-template-btn:hover {
+  background: var(--bg-glass-hover);
+}
+
+.msg-template-btn.active {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: var(--green);
+  color: var(--green-deep);
+}
+
+/* Custom Input */
+.msg-custom-input {
+  margin-bottom: 16px;
+}
+
+.msg-custom-input textarea {
+  resize: none;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* Preview */
+.msg-preview {
+  margin-bottom: 20px;
+}
+
+.msg-preview-bubble {
+  background: var(--bg-tertiary);
+  border-radius: 4px 14px 14px 14px;
+  padding: 14px 16px;
+}
+
+.msg-preview-bubble p {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* Share Buttons */
+.share-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-btn:active {
+  transform: scale(0.97);
+}
+
+.kakao-share {
+  background: #FEE500;
+  color: #191919;
+}
+
+.kakao-share:hover {
+  background: #FDD800;
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.4);
+}
+
+.copy-share {
+  background: var(--gradient-green);
+  color: white;
+}
+
+.copy-share:hover {
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+
+/* Sent Success */
+.sent-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 16px;
+  animation: scaleIn 0.4s var(--transition-spring);
+}
+
+.sent-check {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gradient-green);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 0.6s ease;
+}
+
+.sent-success p {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.sent-sub {
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  color: var(--text-secondary);
+  animation: pulse 1.5s infinite;
+}

@@ -1,0 +1,35 @@
+.notification-toast {
+  background: var(--bg-primary);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  box-shadow: var(--shadow-lg);
+}
+
+.toast-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--red-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: bounce 0.6s ease;
+}
+
+.toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.toast-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
