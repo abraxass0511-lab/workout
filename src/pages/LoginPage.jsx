@@ -12,7 +12,13 @@ export default function LoginPage() {
     try {
       await signInWithGoogle();
     } catch (e) {
-      setError('로그인에 실패했습니다. 다시 시도해주세요.');
+      if (e.code === 'auth/unauthorized-domain') {
+        setError('도메인이 승인되지 않았습니다. Firebase 콘솔에서 도메인을 추가해주세요.');
+      } else if (e.code === 'auth/popup-closed-by-user') {
+        setError('');
+      } else {
+        setError(`로그인 실패: ${e.message || e.code || '알 수 없는 오류'}`);
+      }
     }
     setLoading(false);
   };

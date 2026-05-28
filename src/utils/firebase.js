@@ -66,24 +66,24 @@ export async function onAuthChange(callback) {
 
 // Google Sign-in
 export async function signInWithGoogle() {
+  await waitForFirebase();
   ensureInit();
   if (!auth) return null;
   const provider = new window.firebase.auth.GoogleAuthProvider();
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  if (isMobile) {
-    // Mobile: redirect (avoids in-app browser block)
-    await auth.signInWithRedirect(provider);
-    return null;
-  }
-
-  // PC: popup
+  // Try popup first (works in Chrome, Safari, etc.)
   try {
     const result = await auth.signInWithPopup(provider);
     return result.user;
   } catch (e) {
-    console.error('Google sign-in error:', e);
-    if (e.code === 'auth/popup-blocked' || e.code === 'auth/cancelled-popup-request') {
+    console.error('Popup sign-in error:', e);
+    // If popup fails (blocked, in-app browser), try redirect
+    if (e.code === 'auth/popup-blocked' ||
+        e.code === 'auth/popup-closed-by-user' ||
+        e.code === 'auth/cancelled-popup-request' ||
+        e.code === 'auth/unauthorized-domain') {
+      // Don't redirect for unauthorized-domain, show error
+      if (e.code === 'auth/unauthorized-domain') throw e;
       await auth.signInWithRedirect(provider);
     }
     return null;
