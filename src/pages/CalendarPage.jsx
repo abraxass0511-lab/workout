@@ -185,16 +185,11 @@ export default function CalendarPage() {
                   <span className="cell-day">{day.day}</span>
                   {day.isCurrentMonth && routines.length > 0 && (
                     <div className="cell-exercises">
-                      {routines.slice(0, 2).map((r, i) => (
+                      {routines.map((r, i) => (
                         <span key={i} className={`cell-exercise-name ${status === 'green' ? 'done' : ''}`}>
                           {r.name}
                         </span>
                       ))}
-                      {routines.length > 2 && (
-                        <span className={`cell-exercise-more ${status === 'green' ? 'done' : ''}`}>
-                          +{routines.length - 2}
-                        </span>
-                      )}
                     </div>
                   )}
                 </button>

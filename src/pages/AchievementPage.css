@@ -251,6 +251,13 @@
   margin-bottom: 16px;
 }
 
+.bmi-formula {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
 /* BMI Avatar */
 .bmi-avatar-section {
   display: flex;

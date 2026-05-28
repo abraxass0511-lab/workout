@@ -271,7 +271,7 @@ export default function AchievementPage() {
         {/* BMI Section */}
         {bmi && bmiDetail && (
           <div className="bmi-section glass-card-static">
-            <h3>📊 신체질량지수 (BMI)</h3>
+            <h3>📊 신체질량지수 (BMI) <span className="bmi-formula">체중(kg) ÷ 키(m)²</span></h3>
 
             {/* Body Avatar */}
             <div className="bmi-avatar-section">
@@ -302,11 +302,11 @@ export default function AchievementPage() {
             </div>
             <div className="bmi-bar-wrap">
               <div className="bmi-bar">
-                <div className="bmi-bar-zone bmi-under" />
-                <div className="bmi-bar-zone bmi-normal" />
-                <div className="bmi-bar-zone bmi-over" />
-                <div className="bmi-bar-zone bmi-obese" />
-                <div className="bmi-bar-zone bmi-obese2" />
+                <div className="bmi-bar-zone bmi-under" style={{ flex: 3.5 }} />
+                <div className="bmi-bar-zone bmi-normal" style={{ flex: 4.5 }} />
+                <div className="bmi-bar-zone bmi-over" style={{ flex: 2 }} />
+                <div className="bmi-bar-zone bmi-obese" style={{ flex: 5 }} />
+                <div className="bmi-bar-zone bmi-obese2" style={{ flex: 10 }} />
                 <div className="bmi-indicator" style={{ left: `${bmiBarPercent}%` }} />
               </div>
               <div className="bmi-bar-labels">
