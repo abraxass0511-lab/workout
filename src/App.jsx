@@ -66,10 +66,11 @@ export default function App() {
   const [authUser, setAuthUser] = useState(undefined); // undefined = loading
 
   useEffect(() => {
-    const unsub = onAuthChange((user) => {
+    let unsub = null;
+    onAuthChange((user) => {
       setAuthUser(user || null);
-    });
-    return unsub;
+    }).then((fn) => { unsub = fn; });
+    return () => { if (unsub) unsub(); };
   }, []);
 
   // Loading state

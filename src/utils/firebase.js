@@ -15,18 +15,43 @@ let currentUid = null;
 let currentUser = null;
 
 function ensureInit() {
-  if (app) return;
+  if (app) return true;
   const fb = window.firebase;
-  if (!fb) return;
+  if (!fb) return false;
   app = fb.initializeApp(firebaseConfig);
   auth = fb.auth();
   db = fb.firestore();
+
+  // Handle redirect result (after Google redirect login)
+  auth.getRedirectResult().then((result) => {
+    if (result?.user) {
+      currentUid = result.user.uid;
+      currentUser = result.user;
+    }
+  }).catch((e) => {
+    console.error('Redirect result error:', e);
+  });
+
+  return true;
+}
+
+// Wait for Firebase CDN scripts to load
+function waitForFirebase() {
+  return new Promise((resolve) => {
+    if (window.firebase) { resolve(); return; }
+    const check = setInterval(() => {
+      if (window.firebase) { clearInterval(check); resolve(); }
+    }, 50);
+    // Timeout after 5s
+    setTimeout(() => { clearInterval(check); resolve(); }, 5000);
+  });
 }
 
 // Listen for auth state changes
-export function onAuthChange(callback) {
+export async function onAuthChange(callback) {
+  await waitForFirebase();
   ensureInit();
-  if (!auth) return () => {};
+  if (!auth) { callback(null); return () => {}; }
   return auth.onAuthStateChanged((user) => {
     if (user) {
       currentUid = user.uid;
