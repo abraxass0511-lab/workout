@@ -44,13 +44,21 @@ export async function signInWithGoogle() {
   ensureInit();
   if (!auth) return null;
   const provider = new window.firebase.auth.GoogleAuthProvider();
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // Mobile: redirect (avoids in-app browser block)
+    await auth.signInWithRedirect(provider);
+    return null;
+  }
+
+  // PC: popup
   try {
     const result = await auth.signInWithPopup(provider);
     return result.user;
   } catch (e) {
     console.error('Google sign-in error:', e);
-    // If popup blocked, try redirect
-    if (e.code === 'auth/popup-blocked') {
+    if (e.code === 'auth/popup-blocked' || e.code === 'auth/cancelled-popup-request') {
       await auth.signInWithRedirect(provider);
     }
     return null;
