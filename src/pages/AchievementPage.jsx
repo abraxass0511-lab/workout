@@ -80,9 +80,10 @@ export default function AchievementPage() {
 
     const reportStats = getMonthStats(reportYear, reportMonth);
 
-    if (user.geminiApiKey) {
+    const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (geminiApiKey) {
       const geminiReport = await generateGeminiReport({
-        apiKey: user.geminiApiKey,
+        apiKey: geminiApiKey,
         workoutData: {
           userName: user.nickname || user.name,
           greenDays: reportStats.greenDays,
@@ -386,7 +387,7 @@ export default function AchievementPage() {
               <div className="report-header">
                 <FileText size={20} />
                 <h3>{reportYear}년 {getMonthName(reportMonth)} 총평</h3>
-                {!user.geminiApiKey && <span className="badge badge-accent">Mock</span>}
+                {!import.meta.env.VITE_GEMINI_API_KEY && <span className="badge badge-accent">Mock</span>}
               </div>
               {loadingReport ? (
                 <div className="report-loading">
