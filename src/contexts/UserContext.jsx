@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import { createContext, useContext, useReducer, useEffect, useRef } from 'react';
 import { storage } from '../utils/storage';
+import { saveUserData } from '../utils/firebase';
 
 const UserContext = createContext(null);
 
@@ -29,6 +30,8 @@ function userReducer(state, action) {
     }
     case 'SET_API_KEY':
       return { ...state, geminiApiKey: action.payload };
+    case 'LOAD_CLOUD':
+      return { ...state, ...action.payload };
     case 'RESET':
       return { ...initialState };
     default:
@@ -39,9 +42,21 @@ function userReducer(state, action) {
 export function UserProvider({ children }) {
   const saved = storage.get('user', initialState);
   const [state, dispatch] = useReducer(userReducer, saved);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     storage.set('user', state);
+
+    // Skip cloud save on first render (initial load)
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    // Save to Firestore (debounced via async)
+    if (state.isOnboarded) {
+      saveUserData(state);
+    }
   }, [state]);
 
   return (

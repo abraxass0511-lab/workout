@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
+import { createContext, useContext, useReducer, useEffect, useCallback, useRef } from 'react';
 import { storage } from '../utils/storage';
+import { saveWorkoutData } from '../utils/firebase';
 import { formatDate, getToday, isPast, getTodayDayIndex } from '../utils/dateUtils';
 
 const WorkoutContext = createContext(null);
@@ -180,6 +181,9 @@ function workoutReducer(state, action) {
       };
     }
 
+    case 'LOAD_CLOUD':
+      return { ...state, ...action.payload };
+
     case 'RESET':
       return { ...initialState };
 
@@ -192,9 +196,18 @@ export function WorkoutProvider({ children }) {
   const raw = storage.get('workout', initialState);
   const migrated = migrateState(raw);
   const [state, dispatch] = useReducer(workoutReducer, migrated);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     storage.set('workout', state);
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    // Save to Firestore
+    saveWorkoutData(state);
   }, [state]);
 
   // Helper: get routines for a specific month
