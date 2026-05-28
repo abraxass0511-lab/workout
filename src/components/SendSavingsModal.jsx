@@ -66,19 +66,32 @@ export default function SendSavingsModal({ onClose, onCheerReceived }) {
   // Detect mobile device
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  const handleShare = () => {
+  const handleShare = async () => {
     const msg = getMessage();
 
-    if (isMobile && navigator.share) {
-      // Mobile: native share sheet (KakaoTalk shows here)
-      navigator.share({ title: '안티그래비티', text: msg }).then(markSent).catch(() => {});
-      return;
+    // 1. Try native share API (works on most mobile browsers)
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: '안티그래비티', text: msg });
+        markSent();
+        return;
+      } catch (e) {
+        // User cancelled or error, fall through
+        if (e.name === 'AbortError') return;
+      }
     }
 
-    // PC: copy to clipboard
-    navigator.clipboard?.writeText(msg).then(() => {
-      alert('📋 메시지가 복사되었습니다!\n카카오톡 PC에서 붙여넣기(Ctrl+V) 해주세요.');
-    });
+    // 2. Fallback: copy to clipboard
+    try {
+      await navigator.clipboard.writeText(msg);
+      if (isMobile) {
+        alert('📋 메시지가 복사되었습니다!\n카카오톡에서 붙여넣기 해주세요.');
+      } else {
+        alert('📋 메시지가 복사되었습니다!\n카카오톡 PC에서 붙여넣기(Ctrl+V) 해주세요.');
+      }
+    } catch {
+      // clipboard API not available
+    }
     markSent();
   };
 
