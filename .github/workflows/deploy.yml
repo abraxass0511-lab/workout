@@ -25,7 +25,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VITE_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
 
       - name: Deploy to GitHub Pages

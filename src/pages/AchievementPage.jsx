@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useWorkout } from '../contexts/WorkoutContext';
 import { useUser } from '../contexts/UserContext';
 import { getMonthName, calculateBMI, getBMICategory, getBMIDetail } from '../utils/dateUtils';
-import { generateMockReport, generateGeminiReport } from '../utils/reportGenerator';
+import { generateMockReport } from '../utils/reportGenerator';
 import { Trophy, ChevronLeft, ChevronRight, Sparkles, FileText } from 'lucide-react';
 import './AchievementPage.css';
 
@@ -74,33 +74,11 @@ export default function AchievementPage() {
 
   const motivation = getMotivation();
 
-  const handleGenerateReport = async () => {
+  const handleGenerateReport = () => {
     setLoadingReport(true);
     setShowReport(true);
 
     const reportStats = getMonthStats(reportYear, reportMonth);
-
-    const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (geminiApiKey) {
-      const geminiReport = await generateGeminiReport({
-        apiKey: geminiApiKey,
-        workoutData: {
-          userName: user.nickname || user.name,
-          greenDays: reportStats.greenDays,
-          redDays: reportStats.redDays,
-          totalDays: reportStats.totalActiveDays,
-          heightCm: user.heightCm,
-          weightKg: user.weightKg,
-          month: `${reportYear}년 ${getMonthName(reportMonth)}`,
-        },
-      });
-      if (geminiReport) {
-        setReport(geminiReport);
-        setLoadingReport(false);
-        return;
-      }
-    }
-
     const prevWeight = user.weightHistory.length > 1
       ? user.weightHistory[user.weightHistory.length - 2]?.weight
       : null;
@@ -395,7 +373,7 @@ export default function AchievementPage() {
               <div className="report-header">
                 <FileText size={20} />
                 <h3>{reportYear}년 {getMonthName(reportMonth)} 총평</h3>
-                {!import.meta.env.VITE_GEMINI_API_KEY && <span className="badge badge-accent">Mock</span>}
+
               </div>
               {loadingReport ? (
                 <div className="report-loading">

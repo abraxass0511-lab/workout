@@ -74,36 +74,4 @@ export function generateMockReport({ userName, greenDays, redDays, totalDays, ro
   return report;
 }
 
-// Gemini API call (for future use)
-export async function generateGeminiReport({ apiKey, workoutData }) {
-  if (!apiKey) return null;
 
-  const prompt = `당신은 운동 코칭 AI입니다. 다음 데이터를 분석하여 한국어로 따뜻하고 구체적인 월간 운동 총평 리포트를 마크다운 형식으로 작성해주세요.
-
-규칙:
-1. 80% 달성 기준을 넘겼다면 가족 중심의 가치로 변환하여 극찬할 것
-2. 빨간불(미완료)이 있다면 질책 대신 바쁜 직장 생활을 위로하고, 루틴을 가볍게 수정하라는 현실적 처방을 제공할 것
-3. 마크다운 테이블, 이모지, 헤딩을 활용하여 보기 좋게 구성할 것
-
-운동 데이터:
-${JSON.stringify(workoutData, null, 2)}`;
-
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-        }),
-      }
-    );
-
-    const data = await response.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-  } catch (e) {
-    console.error('Gemini API error:', e);
-    return null;
-  }
-}
