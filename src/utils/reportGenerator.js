@@ -1,4 +1,4 @@
-// AI Report Generator (mock + Gemini API ready)
+// AI Report Generator (Mock)
 import { getDayFullName } from './dateUtils';
 
 // Generate a mock report based on workout data

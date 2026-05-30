@@ -12,7 +12,6 @@ const initialState = {
   weightKg: '',
   familyName: '',
   familyRelation: '배우자',
-  geminiApiKey: '',
   weightHistory: [], // [{ date, weight }]
 };
 
@@ -28,8 +27,7 @@ function userReducer(state, action) {
       history.sort((a, b) => a.date.localeCompare(b.date));
       return { ...state, weightKg: action.payload.weight, weightHistory: history };
     }
-    case 'SET_API_KEY':
-      return { ...state, geminiApiKey: action.payload };
+
     case 'LOAD_CLOUD':
       return { ...state, ...action.payload };
     case 'RESET':
