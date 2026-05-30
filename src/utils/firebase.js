@@ -2,7 +2,7 @@
 // Uses window.firebase to avoid Vite bundle issues
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAvpZ69_opeHPoigRONfF3I8SjfKIRy8b4",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "antigravity-workout-app1.firebaseapp.com",
   projectId: "antigravity-workout-app1",
   storageBucket: "antigravity-workout-app1.firebasestorage.app",
